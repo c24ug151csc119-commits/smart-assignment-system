@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Dashboard - Smart Summit</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="sidebar">
+      <div class="brand">Smart<span>Summit</span></div>
+      <span class="role-tag">Faculty</span>
+
+      <div class="user-chip">
+        <div class="avatar" id="avatarInitial"></div>
+        <div class="name" id="facultyName"></div>
+      </div>
+
+      <div class="nav-item active">Assignments</div>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+
+    <div class="main">
+      <h2 class="page-title">Assignments</h2>
+      <p class="page-sub">Post new work for your students and track what's been assigned.</p>
+
+      <div class="panel">
+        <h3>Post New Assignment</h3>
+        <form id="assignmentForm">
+          <label>Subject ID</label>
+          <input type="number" id="subject_id" required>
+
+          <label>Topic</label>
+          <input type="text" id="topic" required>
+
+          <label>Deadline</label>
+          <input type="date" id="deadline" required>
+
+          <button type="submit">Post Assignment</button>
+        </form>
+        <p id="assignMessage"></p>
+      </div>
+
+      <div class="panel">
+        <h3>My Assignments</h3>
+        <div id="assignmentsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/faculty-dashboard.js"></script>
+</body>
+</html>

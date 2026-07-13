@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard - Smart Summit</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="sidebar">
+      <div class="brand">Smart<span>Summit</span></div>
+      <span class="role-tag">Student</span>
+
+      <div class="user-chip">
+        <div class="avatar" id="avatarInitial"></div>
+        <div class="name" id="studentName"></div>
+      </div>
+
+      <div class="nav-item active">Assignments</div>
+      <div class="nav-item">Marks & Feedback</div>
+
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+
+    <div class="main">
+      <h2 class="page-title">Assignments</h2>
+      <p class="page-sub">View what's due and submit your completed work.</p>
+
+      <div class="panel">
+        <h3>Available Assignments</h3>
+        <div id="assignmentsList"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Submit Assignment</h3>
+        <form id="submitForm">
+          <label>Assignment ID</label>
+          <input type="number" id="assignment_id" required>
+
+          <label>Upload File</label>
+          <input type="file" id="file" required>
+
+          <button type="submit">Submit Work</button>
+        </form>
+        <p id="submitMessage"></p>
+      </div>
+
+      <div class="panel">
+        <h3>My Marks & Feedback</h3>
+        <div id="evaluationsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/student-dashboard.js"></script>
+</body>
+</html>

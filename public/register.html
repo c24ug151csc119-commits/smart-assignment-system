@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Smart Summit</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-side">
+      <div class="brand">Smart<span>Summit</span></div>
+      <p>Register with your roll number or staff ID — verified instantly against your college's records.</p>
+    </div>
+    <div class="auth-form-panel">
+      <div class="container">
+        <h2>Create account</h2>
+        <p class="sub">Fill in your details to get started.</p>
+        <form id="registerForm">
+          <label>Full Name</label>
+          <input type="text" id="name" required>
+
+          <label>Email</label>
+          <input type="email" id="email" required>
+
+          <label>Password</label>
+          <input type="password" id="password" required>
+
+          <label>Role</label>
+          <select id="role" required>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+          </select>
+
+          <label>Department</label>
+          <input type="text" id="department">
+
+          <label>Roll Number / Staff ID</label>
+          <input type="text" id="rollOrStaffId" required>
+
+          <label>College Name</label>
+          <input type="text" id="collegeName" required>
+
+          <label>Course ID</label>
+          <input type="number" id="course_id">
+
+          <label>Semester ID</label>
+          <input type="number" id="semester_id">
+
+          <button type="submit">Create Account</button>
+        </form>
+        <p id="message"></p>
+        <p>Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/register.js"></script>
+</body>
+</html>

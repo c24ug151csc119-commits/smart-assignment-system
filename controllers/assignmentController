@@ -1,0 +1,52 @@
+const db = require('../config/db');
+
+// Faculty creates an assignment (topic + deadline, optional file)
+exports.createAssignment = (req, res) => {
+  const { subject_id, topic, deadline } = req.body;
+  const faculty_id = req.user.user_id; // comes from the token
+  const attachment_path = req.file ? req.file.path : null;
+
+  if (!subject_id || !topic || !deadline) {
+    return res.status(400).json({ message: 'subject_id, topic, and deadline are required' });
+  }
+
+ const sql = 'INSERT INTO assignments (subject_id, faculty_id, topic, attachment_path, deadline) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [subject_id, faculty_id, topic, attachment_path, deadline], (err, result) => {
+    if (err) return res.status(500).json({ message: 'Error creating assignment', error: err.message });
+
+    // Notify all students in this subject's semester
+    const notifySql = `
+      SELECT u.user_id FROM users u
+      JOIN students st ON u.user_id = st.user_id
+      JOIN subjects sub ON st.semester_id = sub.semester_id
+      WHERE sub.subject_id = ?
+    `;
+    db.query(notifySql, [subject_id], (err2, students) => {
+      if (!err2 && students.length > 0) {
+        const message = `New assignment posted: ${topic}`;
+        students.forEach((s) => {
+          db.query('INSERT INTO notifications (user_id, message, type) VALUES (?, ?, ?)', [s.user_id, message, 'new_assignment']);
+        });
+      }
+      res.status(201).json({ message: 'Assignment created successfully', assignment_id: result.insertId });
+    });
+  });
+};
+
+// Get all assignments (for a subject, or all)
+exports.getAssignments = (req, res) => {
+  db.query('SELECT * FROM assignments', (err, results) => {
+    if (err) return res.status(500).json({ message: 'Error fetching assignments', error: err.message });
+    res.json(results);
+  });
+};
+
+// Get single assignment by ID
+exports.getAssignmentById = (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM assignments WHERE assignment_id = ?', [id], (err, results) => {
+    if (err) return res.status(500).json({ message: 'Error fetching assignment', error: err.message });
+    if (results.length === 0) return res.status(404).json({ message: 'Assignment not found' });
+    res.json(results[0]);
+  });
+};
